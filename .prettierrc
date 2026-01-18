@@ -1,0 +1,9 @@
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "semi": true,
+  "tabWidth": 4,
+  "trailingComma": "all",
+  "arrowParens": "avoid",
+  "editor.formatOnSave": true
+}

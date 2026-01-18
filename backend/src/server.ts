@@ -1,23 +1,34 @@
-import express from "express";
-import router from "./routes/tasksRouters";
-import { connectDB } from "./config/db";
-import dotenv from "dotenv";
-import cors from "cors";
+import cors from 'cors';
+import express from 'express';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+
+import { connectDB } from './config/db';
+import taskRoute from './routes/tasksRouters';
+import authRoute from './routes/authRouters';
+import userRoute from './routes/userRouters';
+import { protectedRoute } from './middlewares/authMiddlewares';
+
 dotenv.config();
 
 const app = express();
 
 const PORT = process.env.PORT || 5001;
 
-connectDB();
-
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 
-app.use("/api/tasks", router);
+//public routes
+app.use('/api/auth', authRoute);
+
+//private routes
+app.use(protectedRoute);
+app.use('/api/tasks', taskRoute);
+app.use('/api/users', userRoute);
 
 connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`cong ${PORT}`);
-  });
+    app.listen(PORT, () => {
+        console.log(`cong ${PORT}`);
+    });
 });
