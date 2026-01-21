@@ -45,7 +45,7 @@ export const protectedRoute = async (
         next();
     } catch (error) {
         console.error('Lỗi khi xác minh JWT', error);
-        return res.status(403).json({
+        return res.status(401).json({
             message: 'AccessToken không hợp lệ hoặc đã hết hạn',
         });
     }

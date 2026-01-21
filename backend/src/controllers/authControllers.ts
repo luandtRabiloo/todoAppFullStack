@@ -8,17 +8,16 @@ type TUserBody = {
     username: string;
     password: string;
     email: string;
-    firstName: string;
-    lastName: string;
+    phone: string;
 };
 
-const ACCESS_TOKEN_TTL = '30m';
+const ACCESS_TOKEN_TTL = '1d';
 const REFRESH_ACCESS_TOKEN_TTL = 14 * 24 * 60 * 60 * 1000;
 
 export const signUp = async (req: Request<{}, {}, TUserBody>, res: Response) => {
     try {
-        const { username, lastName, email, firstName, password } = req.body;
-        if (!username || !lastName || !email || !firstName || !password) {
+        const { username, email, password, phone } = req.body;
+        if (!username || !email || !password || !phone) {
             return res.status(400).json({ massage: 'Thiếu dữ liệu' });
         }
         const duplicate = await User.findOne({ username });
@@ -26,12 +25,11 @@ export const signUp = async (req: Request<{}, {}, TUserBody>, res: Response) => 
             return res.status(409).json({ massage: 'username đã tồn tại' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log({ hashedPassword });
         await User.create({
             username,
             hashedPassword,
             email,
-            displayName: `${firstName} ${lastName}`,
+            phone,
         });
         return res.sendStatus(204);
     } catch (error) {

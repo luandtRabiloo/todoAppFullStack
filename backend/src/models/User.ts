@@ -20,11 +20,6 @@ const userSchema = new mongoose.Schema(
             trim: true,
             lowercase: true,
         },
-        displayName: {
-            type: String,
-            require: true,
-            trim: true,
-        },
         avatarUrl: {
             type: String,
         },
