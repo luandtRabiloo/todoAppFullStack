@@ -34,6 +34,7 @@ frontend/android/local.properties
 frontend/android/.idea/
 frontend/android/*.iml
 frontend/android/app/release/
+frontend/android/app/.cxx/
 frontend/android/app/debug/
 frontend/android/gradlew
 frontend/android/gradlew.bat
