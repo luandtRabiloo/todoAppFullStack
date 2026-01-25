@@ -8,6 +8,8 @@ import taskRoute from './routes/tasksRouters';
 import authRoute from './routes/authRouters';
 import userRoute from './routes/userRouters';
 import { protectedRoute } from './middlewares/authMiddlewares';
+import friendRoutr from './routes/friendRouters';
+import messagwRouter from './routes/messagerouters';
 
 dotenv.config();
 
@@ -25,6 +27,8 @@ app.use('/api/auth', authRoute);
 //private routes
 app.use(protectedRoute);
 app.use('/api/tasks', taskRoute);
+app.use('/api/friend', friendRoutr);
+app.use('/api/message', messagwRouter);
 app.use('/api/users', userRoute);
 
 connectDB().then(() => {
