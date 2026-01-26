@@ -60,7 +60,7 @@ const ConversationSchema = new mongoose.Schema(
     {
         type: {
             type: String,
-            emun: ['direct', 'group'],
+            enum: ['direct', 'group'],
             require: true,
         },
         participant: {

@@ -1,10 +1,11 @@
 import express from 'express';
-import { sendDiractMessage, sendGroupMessage } from '../controllers/messageControler';
+import { sendDirectMessage, sendGroupMessage } from '../controllers/messageController';
+import { checkFriendship, checkGroupMembership } from '../middlewares/friendMiddlewares';
 
-const messagwRouter = express.Router();
+const messageRouter = express.Router();
 
-messagwRouter.post('/direct', sendDiractMessage);
+messageRouter.post('/direct', checkFriendship, sendDirectMessage);
 
-messagwRouter.post('/group', sendGroupMessage);
+messageRouter.post('/group', checkGroupMembership, sendGroupMessage);
 
-export default messagwRouter;
+export default messageRouter;

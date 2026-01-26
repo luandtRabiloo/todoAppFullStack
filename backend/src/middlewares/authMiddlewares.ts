@@ -6,7 +6,6 @@ import { AuthRequest } from '../types/request';
 export type IUser = {
     username: string;
     email: string;
-    displayName: string;
     avatarUrl: string;
     avatartId: string;
     bio: string;

@@ -7,16 +7,16 @@ import {
     getFriendRequests,
 } from '../controllers/FriendController';
 
-const friendRoutr = express.Router();
+const friendRouter = express.Router();
 
-friendRoutr.get('/', getAllFriend);
+friendRouter.get('/', getAllFriend);
 
-friendRoutr.get('/requets-friend', getFriendRequests);
+friendRouter.get('/request-friend', getFriendRequests);
 
-friendRoutr.post('/requets-friend', sendFriend);
+friendRouter.post('/request-friend', sendFriend);
 
-friendRoutr.post('/requets-friend/:requestId/accept', acceptFriendRequest);
+friendRouter.post('/request-friend/:requestId/accept', acceptFriendRequest);
 
-friendRoutr.put('/requets-friend/:requestId/decline', declineFriendRequest);
+friendRouter.put('/request-friend/:requestId/decline', declineFriendRequest);
 
-export default friendRoutr;
+export default friendRouter;
