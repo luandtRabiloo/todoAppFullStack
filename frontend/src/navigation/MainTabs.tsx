@@ -5,6 +5,7 @@ import { Colors } from '../utils/color';
 
 import { HomeStackScreen } from './HomeStack';
 import { ChatStackScreen } from './ChatStack';
+import { UsersStackScreen } from './UsersStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,6 +36,21 @@ export function MainTabs() {
                     title: 'Chat',
                     tabBarIcon: ({ color, size }) => (
                         <FontAwesome6 name="comment" size={size} color={color} iconStyle="solid" />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="UsersSTab"
+                component={UsersStackScreen}
+                options={{
+                    title: 'Users',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome6
+                            name="user-group"
+                            size={size}
+                            color={color}
+                            iconStyle="solid"
+                        />
                     ),
                 }}
             />
