@@ -11,10 +11,9 @@ import { protectedRoute } from './middlewares/authMiddlewares';
 import friendRouter from './routes/friendRouters';
 import messageRouter from './routes/messageRouters';
 import conversationRouter from './routes/conversationRouters';
+import { server, app } from './socket';
 
 dotenv.config();
-
-const app = express();
 
 const PORT = process.env.PORT || 5001;
 
@@ -23,8 +22,8 @@ app.use(cookieParser());
 app.use(cors());
 
 //public routes
-app.use('/api/auth', authRoute);
 
+app.use('/api/auth', authRoute);
 //private routes
 app.use(protectedRoute);
 app.use('/api/tasks', taskRoute);
@@ -34,7 +33,7 @@ app.use('/api/conversation', conversationRouter);
 app.use('/api/users', userRoute);
 
 connectDB().then(() => {
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
         console.log(`cong ${PORT}`);
     });
 });

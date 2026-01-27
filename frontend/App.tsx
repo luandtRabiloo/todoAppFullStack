@@ -13,7 +13,8 @@ import { Colors } from './src/utils/color';
 import { Home } from './src/screen/Home/Home';
 import { CreateTask } from './src/screen/CreateTask/CreateTask';
 import { EditTask } from './src/screen/EditTask/EditTask';
-import { Auth, Login } from './src/screen/Auth/Auth';
+import { Auth } from './src/screen/Auth/Auth';
+import { useSocket } from './socket/modules/useSocket';
 
 // Define navigation types
 export type RootStackParamList = {
@@ -41,7 +42,6 @@ const queryClient = new QueryClient({
 
 function App() {
     const isDarkMode = useColorScheme() === 'dark';
-
     return (
         <QueryClientProvider client={queryClient}>
             <SafeAreaProvider initialMetrics={initialWindowMetrics}>

@@ -1,10 +1,9 @@
 import express from 'express';
-import { refreshToken, signIn, signOut, signUp } from '../controllers/authControllers';
 import {
     createConversation,
     getConversations,
     getMessages,
-} from '../controllers/converationController';
+} from '../controllers/conversationController';
 import { checkFriendship } from '../middlewares/friendMiddlewares';
 
 const conversationRouter = express.Router();

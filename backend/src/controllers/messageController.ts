@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Conversation from '../models/Conversation';
 import Message from '../models/Message';
-import { updateConversationAfterCreateMessage } from '../utils/messageHelper';
+import { emitNewMessage, updateConversationAfterCreateMessage } from '../utils/messageHelper';
 
 export const sendDirectMessage = async (req: Request, res: Response) => {
     try {

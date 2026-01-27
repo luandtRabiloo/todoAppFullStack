@@ -9,9 +9,11 @@ import { signOut } from '../../utils/FetchApi/FetchApi';
 import { useState } from 'react';
 import { useGetListTask } from './modules/useGetListTask';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSocket } from '../../../socket/modules/useSocket';
 
 export function Home() {
     const { list } = useGetListTask();
+    useSocket();
     const navigation = useNavigation<NavigationProp>();
     const [loading, setLoading] = useState(false);
     const accessToken = async () => {
