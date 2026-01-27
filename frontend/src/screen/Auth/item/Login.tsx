@@ -4,8 +4,9 @@ import { Colors } from '../../../utils/color';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
 import { signIn } from '../../../utils/FetchApi/FetchApi';
 import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from '../../../../App';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../navigation/RootNavigator';
 
 export type TLoginProps = {
     setIsLogin: (value: boolean) => void;
@@ -15,7 +16,8 @@ export function Login({ setIsLogin }: TLoginProps) {
     const [username, setUsername] = useState('luandt');
     const [password, setPassword] = useState('admin123');
     const [loading, setLoading] = useState(false);
-    const navigation = useNavigation<NavigationProp>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
     const handleLogin = async () => {
         // Validate
         if (!username || !password) {
@@ -34,7 +36,7 @@ export function Login({ setIsLogin }: TLoginProps) {
             await AsyncStorage.setItem('refreshToken', result.refreshToken);
             Alert.alert('Thành công', result.message || 'Đăng nhập thành công');
 
-            navigation.navigate('Home');
+            navigation.replace('MainTabs');
         } catch (error: any) {
             console.log('=== LOGIN ERROR ===', error);
             Alert.alert('Lỗi', error.message || 'Đăng nhập thất bại');

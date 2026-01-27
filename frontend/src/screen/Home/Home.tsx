@@ -3,27 +3,21 @@ import { Header } from '../../element/Header';
 import TodoItemCard from '../../element/TaskItem';
 import { Colors } from '../../utils/color';
 import { useNavigation } from '@react-navigation/native';
-import { NavigationProp } from '../../../App';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
 import { signOut } from '../../utils/FetchApi/FetchApi';
 import { useState } from 'react';
 import { useGetListTask } from './modules/useGetListTask';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSocket } from '../../../socket/modules/useSocket';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/RootNavigator';
 
 export function Home() {
     const { list } = useGetListTask();
     useSocket();
-    const navigation = useNavigation<NavigationProp>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [loading, setLoading] = useState(false);
-    const accessToken = async () => {
-        const a = await AsyncStorage.getItem('refreshToken');
 
-        const b = await AsyncStorage.getItem('refreshToken');
-        console.log('first', a, b);
-    };
     const handleSignOut = async () => {
-        await accessToken();
         Alert.alert('Xác nhận', 'Bạn có chắc muốn đăng xuất?', [
             {
                 text: 'Hủy',
