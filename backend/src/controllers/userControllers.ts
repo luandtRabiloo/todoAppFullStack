@@ -13,7 +13,15 @@ export const authMe = async (req: AuthRequest<IUser>, res: Response) => {
 };
 export const getAllUser = async (req: AuthRequest<IUser>, res: Response) => {
     try {
-        const users = await User.find().select('-hashedPassword -__v').sort({ createdAt: -1 });
+        const user = req.user;
+        if (!user) {
+            return;
+        }
+        const users = await User.find({
+            _id: { $ne: user._id },
+        })
+            .select('-hashedPassword -__v')
+            .sort({ createdAt: -1 });
 
         return res.status(200).json({
             total: users.length,

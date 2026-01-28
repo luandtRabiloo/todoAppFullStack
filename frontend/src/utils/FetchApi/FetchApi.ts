@@ -312,3 +312,15 @@ export const getAllUsers = async () => {
         method: 'GET',
     });
 };
+export const sendFriend = async (to: string, message: string) => {
+    return await fetchWithAuth(`${API_URL}/friend/request-friend`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            to,
+            message,
+        }),
+    });
+};

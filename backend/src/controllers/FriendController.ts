@@ -20,7 +20,7 @@ export const sendFriend = async (req: Request, res: Response) => {
         }
 
         let userA = from.toString();
-        let userB = from.toString();
+        let userB = to.toString();
 
         if (userA > userB) {
             [userA, userB] = [userB, userB];
@@ -30,7 +30,7 @@ export const sendFriend = async (req: Request, res: Response) => {
             Friend.findOne({ userA, userB }),
             FriendReq.findOne({
                 $or: [
-                    { from, top },
+                    { from, to },
                     { from: to, to: from },
                 ],
             }),

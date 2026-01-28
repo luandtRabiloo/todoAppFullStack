@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { Colors } from '../../../utils/color';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
+import { sendFriend } from '../../../utils/FetchApi/FetchApi';
 
 const { width } = Dimensions.get('window');
 
 type TProfileCardProps = {
     data: {
+        _id?: string;
         username?: string;
         email?: string;
         phone?: string;
@@ -15,7 +17,25 @@ type TProfileCardProps = {
 };
 
 export const ProfileCard: React.FC<TProfileCardProps> = ({ data }) => {
-    const { username, email, phone, avatarUrl = 'https://i.pravatar.cc/150?img=12' } = data;
+    const {
+        username,
+        email,
+        phone,
+        avatarUrl = 'https://i.pravatar.cc/150?img=12',
+        _id = '',
+    } = data;
+    const onSendFriend = async () => {
+        try {
+            const result = await sendFriend(_id, 'Kết bạn với mình nhé');
+            console.log({ result });
+            Alert.alert('Thành công', result.message);
+        } catch (error) {
+            console.log('onSendFriend error', error);
+            const message = error?.message || 'Có lỗi xảy ra';
+            Alert.alert('Lỗi', message);
+        }
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.card}>
@@ -55,7 +75,11 @@ export const ProfileCard: React.FC<TProfileCardProps> = ({ data }) => {
                 </View>
 
                 {/* Follow Button */}
-                <TouchableOpacity style={[styles.followButton]} activeOpacity={0.8}>
+                <TouchableOpacity
+                    style={[styles.followButton]}
+                    activeOpacity={0.8}
+                    onPress={onSendFriend}
+                >
                     <FontAwesome6
                         iconStyle="solid"
                         name="user-plus"
