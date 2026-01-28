@@ -31,7 +31,6 @@ export function Login({ setIsLogin }: TLoginProps) {
                 username,
                 password,
             });
-            console.log({ result });
             await AsyncStorage.setItem('accessToken', result.accessToken);
             await AsyncStorage.setItem('refreshToken', result.refreshToken);
             Alert.alert('Thành công', result.message || 'Đăng nhập thành công');

@@ -4,7 +4,7 @@ import { Colors } from '../../utils/color';
 import { useState } from 'react';
 import { createTodo } from '../../utils/FetchApi/FetchApi';
 import { useQueryClient } from '@tanstack/react-query';
-import { QueryKey } from '../../utils/FetchApi/Querykey';
+import { QueryKey } from '../../utils/FetchApi/QueryKey';
 import { useNavigation } from '@react-navigation/native';
 
 export function CreateTask() {

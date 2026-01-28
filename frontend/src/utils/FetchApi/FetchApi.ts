@@ -10,6 +10,7 @@ const handleLogout = async () => {
 };
 const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
     try {
+        console.log({ url });
         const accessToken = await AsyncStorage.getItem('accessToken');
 
         const headers = {
@@ -23,10 +24,8 @@ const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
             ...options,
             headers,
         });
-        console.log('response', response.status);
         if (response.status === 401) {
             const refreshSuccess = await refreshAccessToken();
-            console.log({ refreshSuccess });
             if (refreshSuccess) {
                 // Retry request với token mới
                 const newAccessToken = await AsyncStorage.getItem('accessToken');
@@ -116,6 +115,7 @@ export const getTodos = async ({
     limit?: number;
     filter?: 'today' | 'all' | 'week' | 'month';
 }) => {
+    console.log('todo');
     return await fetchWithAuth(`${API_URL}/tasks?filter=${filter}&page=${page}&limit=${limit}`, {
         method: 'GET',
     });
@@ -305,4 +305,10 @@ export const signOut = async () => {
 
         throw error;
     }
+};
+
+export const getAllUsers = async () => {
+    return await fetchWithAuth(`${API_URL}/users/get-all-users`, {
+        method: 'GET',
+    });
 };

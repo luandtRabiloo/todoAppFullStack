@@ -1,3 +1,4 @@
 export const QueryKey = {
-  useGetListTask: 'useGetListTask',
+    useGetListTask: 'useGetListTask',
+    useGetAllUsers: 'useGetAllUsers',
 };

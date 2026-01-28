@@ -4,28 +4,24 @@ const userSchema = new mongoose.Schema(
     {
         username: {
             type: String,
-            require: true,
+            required: true,
             unique: true,
             trim: true,
             lowercase: true,
         },
         hashedPassword: {
             type: String,
-            require: true,
+            required: true,
         },
         email: {
             type: String,
-            require: true,
+            required: true,
             unique: true,
             trim: true,
             lowercase: true,
         },
-        avatarUrl: {
-            type: String,
-        },
-        avatartId: {
-            type: String,
-        },
+        avatarUrl: String,
+        avatarId: String,
         bio: {
             type: String,
             maxlength: 500,
@@ -35,9 +31,7 @@ const userSchema = new mongoose.Schema(
             sparse: true,
         },
     },
-    {
-        timestamps: true,
-    },
+    { timestamps: true },
 );
 
 const User = mongoose.model('User', userSchema);

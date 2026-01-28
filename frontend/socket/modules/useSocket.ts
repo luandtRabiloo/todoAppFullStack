@@ -41,9 +41,7 @@ export function useSocket() {
             console.log('Socket connect error:', err);
         };
 
-        const onOnlineUser = (userId: string[]) => {
-            console.log('userId', userId);
-        };
+        const onOnlineUser = (userId: string[]) => {};
 
         socket.on('connect', onConnect);
         socket.on('disconnect', onDisconnect);
