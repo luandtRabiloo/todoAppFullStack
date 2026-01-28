@@ -6,6 +6,7 @@ import { Colors } from '../utils/color';
 import { HomeStackScreen } from './HomeStack';
 import { ChatStackScreen } from './ChatStack';
 import { UsersStackScreen } from './UsersStack';
+import { NotificationStack } from './NotificationStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,7 @@ export function MainTabs() {
                 }}
             />
             <Tab.Screen
-                name="UsersSTab"
+                name="UsersTab"
                 component={UsersStackScreen}
                 options={{
                     title: 'Users',
@@ -51,6 +52,16 @@ export function MainTabs() {
                             color={color}
                             iconStyle="solid"
                         />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="NotificationTab"
+                component={NotificationStack}
+                options={{
+                    title: 'Notify',
+                    tabBarIcon: ({ color, size }) => (
+                        <FontAwesome6 name="bell" size={size} color={color} iconStyle="solid" />
                     ),
                 }}
             />

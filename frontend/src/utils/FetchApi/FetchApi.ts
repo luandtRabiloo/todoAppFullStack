@@ -324,3 +324,8 @@ export const sendFriend = async (to: string, message: string) => {
         }),
     });
 };
+export const getFriendRequests = async () => {
+    return await fetchWithAuth(`${API_URL}/friend/request-friend`, {
+        method: 'GET',
+    });
+};

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { Header } from '../../element/Header';
 
 export function Chat() {
     return (
-        <View style={{ flex: 1, backgroundColor: 'red' }}>
-            <Text>12312312</Text>
+        <View style={{ flex: 1 }}>
+            <Header iconLeft={false} title={'Chat'} iconRight={false} />
         </View>
     );
 }
