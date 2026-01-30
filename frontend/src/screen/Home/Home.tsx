@@ -10,13 +10,14 @@ import { useGetListTask } from './modules/useGetListTask';
 import { useSocket } from '../../../socket/modules/useSocket';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../navigation/RootNavigator';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 
 export function Home() {
     const { list } = useGetListTask();
+    const queryClient = useQueryClient();
     useSocket();
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [loading, setLoading] = useState(false);
-
     const handleSignOut = async () => {
         Alert.alert('Xác nhận', 'Bạn có chắc muốn đăng xuất?', [
             {
@@ -37,6 +38,7 @@ export function Home() {
                             index: 0,
                             routes: [{ name: 'Auth' }],
                         });
+                        queryClient.clear();
                     } catch (error: any) {
                         Alert.alert('Lỗi', error.message || 'Đăng xuất thất bại');
 

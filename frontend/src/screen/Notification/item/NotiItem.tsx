@@ -1,32 +1,41 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Alert } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Colors } from '../../../utils/color';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
-import { sendFriend } from '../../../utils/FetchApi/FetchApi';
-
-const { width } = Dimensions.get('window');
+import { acceptFriendRequest, declineFriendRequest } from '../../../utils/FetchApi/FetchApi';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type TProfileCardProps = {
     data: {
         _id?: string;
-        username?: string;
-        email?: string;
-        phone?: string;
-        avatarUrl?: string;
+        message?: string;
+        from: {
+            _id?: string;
+            username: string;
+            phone?: string;
+            email?: string;
+        };
     };
 };
 
-export const ProfileCard: React.FC<TProfileCardProps> = ({ data }) => {
-    const {
-        username,
-        email,
-        phone,
-        avatarUrl = 'https://i.pravatar.cc/150?img=12',
-        _id = '',
-    } = data;
-    const onSendFriend = async () => {
+export const NotiItem: React.FC<TProfileCardProps> = ({ data }) => {
+    const { username, phone, email } = data.from;
+
+    const onAcceptFriendRequest = async () => {
         try {
-            const result = await sendFriend(_id, 'Kết bạn với mình nhé');
+            console.log(await AsyncStorage.getItem('accessToken'));
+            const result = await acceptFriendRequest(data._id);
+            Alert.alert('Thành công', result.message);
+        } catch (error) {
+            console.log('onSendFriend error', error);
+            const message = error?.message || 'Có lỗi xảy ra';
+            Alert.alert('Lỗi', message);
+        }
+    };
+    const onDeclineFriendRequest = async () => {
+        try {
+            console.log(await AsyncStorage.getItem('accessToken'));
+            const result = await declineFriendRequest(data._id);
             Alert.alert('Thành công', result.message);
         } catch (error) {
             console.log('onSendFriend error', error);
@@ -40,7 +49,11 @@ export const ProfileCard: React.FC<TProfileCardProps> = ({ data }) => {
             <View style={styles.card}>
                 {/* Avatar */}
                 <View style={styles.avatarContainer}>
-                    <Image source={{ uri: avatarUrl }} style={styles.avatar} resizeMode="cover" />
+                    <Image
+                        source={{ uri: 'https://i.pravatar.cc/150?img=12' }}
+                        style={styles.avatar}
+                        resizeMode="cover"
+                    />
                     <View style={styles.avatarBorder} />
                 </View>
 
@@ -74,18 +87,32 @@ export const ProfileCard: React.FC<TProfileCardProps> = ({ data }) => {
                 </View>
 
                 {/* Follow Button */}
-                <TouchableOpacity
-                    style={[styles.followButton]}
-                    activeOpacity={0.8}
-                    onPress={onSendFriend}
-                >
-                    <FontAwesome6
-                        iconStyle="solid"
-                        name="user-plus"
-                        size={20}
-                        color={Colors.primary}
-                    />
-                </TouchableOpacity>
+                <View style={{ flexDirection: 'row', gap: 20 }}>
+                    <TouchableOpacity
+                        style={[styles.followButton]}
+                        activeOpacity={0.8}
+                        onPress={onAcceptFriendRequest}
+                    >
+                        <FontAwesome6
+                            iconStyle="solid"
+                            name="check"
+                            size={20}
+                            color={Colors.primary}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[styles.followButton]}
+                        activeOpacity={0.8}
+                        onPress={onDeclineFriendRequest}
+                    >
+                        <FontAwesome6
+                            iconStyle="solid"
+                            name="xmark"
+                            size={20}
+                            color={Colors.primary}
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );

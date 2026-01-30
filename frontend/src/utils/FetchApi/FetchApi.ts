@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TCreateConversation } from './type';
 
 const API_URL = 'http://192.168.10.245:5001/api';
 
@@ -327,5 +328,41 @@ export const sendFriend = async (to: string, message: string) => {
 export const getFriendRequests = async () => {
     return await fetchWithAuth(`${API_URL}/friend/request-friend`, {
         method: 'GET',
+    });
+};
+export const acceptFriendRequest = async (requestId?: string) => {
+    return await fetchWithAuth(`${API_URL}/friend/request-friend/${requestId}/accept`, {
+        method: 'POST',
+        body: JSON.stringify({
+            requestId,
+        }),
+    });
+};
+export const declineFriendRequest = async (requestId?: string) => {
+    return await fetchWithAuth(`${API_URL}/friend/request-friend/${requestId}/decline`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            requestId,
+        }),
+    });
+};
+export const getAllFriend = async () => {
+    return await fetchWithAuth(`${API_URL}/friend`, {
+        method: 'GET',
+    });
+};
+export const getAllConversation = async () => {
+    return await fetchWithAuth(`${API_URL}/conversation`, {
+        method: 'GET',
+    });
+};
+export const createConversation = async ({ type, name, memberIds }: TCreateConversation) => {
+    return await fetchWithAuth(`${API_URL}/conversation`, {
+        method: 'POST',
+        body: JSON.stringify({
+            type,
+            name,
+            memberIds,
+        }),
     });
 };

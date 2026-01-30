@@ -18,14 +18,17 @@ const friendSchema = new mongoose.Schema(
     },
 );
 
-friendSchema.pre('save', next => {
+friendSchema.pre('save', function (next) {
     const a = this.userA.toString();
-    const b = this.userA.toString();
+    const b = this.userB.toString();
 
+    // Chuẩn hoá thứ tự để tránh trùng (A,B) và (B,A)
     if (a > b) {
-        this.userA = new mongoose.Types.ObjectId(b);
-        this.userB = new mongoose.Types.ObjectId(a);
+        const temp = this.userA;
+        this.userA = this.userB;
+        this.userB = temp;
     }
+
     next();
 });
 

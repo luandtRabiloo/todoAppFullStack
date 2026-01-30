@@ -56,33 +56,39 @@ export const sendFriend = async (req: Request, res: Response) => {
 
 export const acceptFriendRequest = async (req: Request, res: Response) => {
     try {
-        const { requestId } = req.body;
-        const userId = res.user._id;
+        const { requestId } = req.params;
+        const userId = req.user._id;
+
         const request = await FriendReq.findById(requestId);
+
         if (!request) {
             return res.status(404).json({ message: 'Không tìm thấy lời mời kết bạn' });
         }
+
         if ((request.to || '').toString() !== userId.toString()) {
             return res.status(403).json({ message: 'Bạn không có quyền chấp nhận lời mời này' });
         }
-        const friend = await Friend.create({
+
+        await Friend.create({
             userA: request.from,
             userB: request.to,
         });
 
         await FriendReq.findByIdAndDelete(requestId);
+
         const from = await User.findById(request.from).select('_id username avatarUrl').lean();
+
         return res.status(200).json({
             message: 'Chấp nhận lời mời kết bạn thành công',
             newFriend: {
                 _id: from?._id,
-                username: from?.username,
+                displayName: from?.username,
                 avatarUrl: from?.avatarUrl,
             },
         });
     } catch (error) {
-        console.log('lỗi acceptFriendRequest', error);
-        res.status(500).json({ message: 'lỗi server' });
+        console.error('Lỗi khi chấp nhận lời mời kết bạn', error);
+        return res.status(500).json({ message: 'Lỗi hệ thống' });
     }
 };
 export const declineFriendRequest = async (req: Request, res: Response) => {
@@ -122,8 +128,8 @@ export const getAllFriend = async (req: Request, res: Response) => {
                 },
             ],
         })
-            .populate('userA', '_id username avatarUrl username')
-            .populate('userB', '_id username avatarUrl username')
+            .populate('userA', '_id username avatarUrl phone email')
+            .populate('userB', '_id username avatarUrl phone email')
             .lean();
 
         if (!friendships.length) {

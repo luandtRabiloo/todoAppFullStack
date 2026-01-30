@@ -1,17 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { QueryKey } from '../../../utils/FetchApi/QueryKey';
-import { getAllUsers, getFriendRequests } from '../../../utils/FetchApi/FetchApi';
+import { getAllFriend } from '../../../utils/FetchApi/FetchApi';
 import { useScreenFocusRefetch } from '../../../utils/modules/AppHook';
 
-export const useGetListNoti = () => {
+export const useGetLitChat = () => {
     const query = useQuery({
-        queryKey: [QueryKey.useGetListNoti],
-        queryFn: getFriendRequests,
+        queryKey: [QueryKey.useGetLitChat],
+        queryFn: getAllFriend,
     });
     useScreenFocusRefetch(query.refetch);
-    console.log('object', query.data);
+    console.log('useGetLitChat', query.data);
     return {
         ...query,
-        received: query.data?.received,
+        friends: query.data?.friends,
     };
 };

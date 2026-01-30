@@ -1,46 +1,30 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, Alert } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { Colors } from '../../../utils/color';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
-import { sendFriend } from '../../../utils/FetchApi/FetchApi';
-
-const { width } = Dimensions.get('window');
 
 type TProfileCardProps = {
     data: {
         _id?: string;
-        username?: string;
-        email?: string;
+        username: string;
         phone?: string;
-        avatarUrl?: string;
+        email?: string;
     };
 };
 
-export const ProfileCard: React.FC<TProfileCardProps> = ({ data }) => {
-    const {
-        username,
-        email,
-        phone,
-        avatarUrl = 'https://i.pravatar.cc/150?img=12',
-        _id = '',
-    } = data;
-    const onSendFriend = async () => {
-        try {
-            const result = await sendFriend(_id, 'Kết bạn với mình nhé');
-            Alert.alert('Thành công', result.message);
-        } catch (error) {
-            console.log('onSendFriend error', error);
-            const message = error?.message || 'Có lỗi xảy ra';
-            Alert.alert('Lỗi', message);
-        }
-    };
+export const ConversationItem: React.FC<TProfileCardProps> = ({ data }) => {
+    const { username, phone = '', email = '' } = data;
 
     return (
         <View style={styles.container}>
             <View style={styles.card}>
                 {/* Avatar */}
                 <View style={styles.avatarContainer}>
-                    <Image source={{ uri: avatarUrl }} style={styles.avatar} resizeMode="cover" />
+                    <Image
+                        source={{ uri: 'https://i.pravatar.cc/150?img=12' }}
+                        style={styles.avatar}
+                        resizeMode="cover"
+                    />
                     <View style={styles.avatarBorder} />
                 </View>
 
@@ -72,20 +56,6 @@ export const ProfileCard: React.FC<TProfileCardProps> = ({ data }) => {
                         </Text>
                     </View>
                 </View>
-
-                {/* Follow Button */}
-                <TouchableOpacity
-                    style={[styles.followButton]}
-                    activeOpacity={0.8}
-                    onPress={onSendFriend}
-                >
-                    <FontAwesome6
-                        iconStyle="solid"
-                        name="user-plus"
-                        size={20}
-                        color={Colors.primary}
-                    />
-                </TouchableOpacity>
             </View>
         </View>
     );
