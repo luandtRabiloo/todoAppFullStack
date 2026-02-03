@@ -27,17 +27,29 @@ export const createConversation = async (req: Request, res: Response) => {
             conversation = await Conversation.findOne({
                 type: 'direct',
                 'participants.userId': { $all: [userId, participantId] },
+            }).populate([
+                { path: 'participants.userId', select: 'username avatarUrl' },
+                { path: 'seenBy', select: 'username avatarUrl' },
+                { path: 'lastMessage.senderId', select: 'username avatarUrl' },
+            ]);
+
+            if (conversation) {
+                return res.status(200).json({ conversation });
+            }
+
+            conversation = new Conversation({
+                type: 'direct',
+                participants: [{ userId }, { userId: participantId }],
+                lastMessageAt: new Date(),
             });
 
-            if (!conversation) {
-                conversation = new Conversation({
-                    type: 'direct',
-                    participants: [{ userId }, { userId: participantId }],
-                    lastMessageAt: new Date(),
-                });
+            await conversation.save();
 
-                await conversation.save();
-            }
+            await conversation.populate([
+                { path: 'participants.userId', select: 'username avatarUrl' },
+                { path: 'seenBy', select: 'username avatarUrl' },
+                { path: 'lastMessage.senderId', select: 'username avatarUrl' },
+            ]);
         }
 
         if (type === 'group') {
@@ -52,20 +64,17 @@ export const createConversation = async (req: Request, res: Response) => {
             });
 
             await conversation.save();
+
+            await conversation.populate([
+                { path: 'participants.userId', select: 'username avatarUrl' },
+                { path: 'seenBy', select: 'username avatarUrl' },
+                { path: 'lastMessage.senderId', select: 'username avatarUrl' },
+            ]);
         }
 
         if (!conversation) {
             return res.status(400).json({ message: 'Conversation type không hợp lệ' });
         }
-
-        await conversation.populate([
-            { path: 'participants.userId', select: 'username avatarUrl' },
-            {
-                path: 'seenBy',
-                select: 'username avatarUrl',
-            },
-            { path: 'lastMessage.senderId', select: 'username avatarUrl' },
-        ]);
 
         return res.status(201).json({ conversation });
     } catch (error) {

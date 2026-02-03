@@ -5,7 +5,7 @@ const participantSchema = new mongoose.Schema(
         userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-            require: true,
+            required: true,
         },
         joinedAt: {
             type: Date,
@@ -61,11 +61,11 @@ const ConversationSchema = new mongoose.Schema(
         type: {
             type: String,
             enum: ['direct', 'group'],
-            require: true,
+            required: true,
         },
-        participant: {
+        participants: {
             type: [participantSchema],
-            require: true,
+            required: true,
         },
         group: {
             type: groupSchema,
@@ -81,7 +81,7 @@ const ConversationSchema = new mongoose.Schema(
             type: lastMessageSchema,
             default: null,
         },
-        unReadCount: {
+        unreadCounts: {
             type: Map,
             of: Number,
             default: {},
@@ -92,7 +92,7 @@ const ConversationSchema = new mongoose.Schema(
     },
 );
 
-ConversationSchema.index({ 'participant.userId': 1, lastMessageAt: -1 });
+ConversationSchema.index({ 'participants.userId': 1, lastMessageAt: -1 });
 
 const Conversation = mongoose.model('Conversation', ConversationSchema);
 

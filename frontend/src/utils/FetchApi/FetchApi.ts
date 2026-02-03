@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TCreateConversation } from './type';
+import { TCreateConversation, TSendDirectMessage } from './type';
 
-const API_URL = 'http://192.168.10.245:5001/api';
+const API_URL = 'http://192.168.52.19:5001/api';
 
+// 192.168.52.19
+// 192.168.10.245
 const handleLogout = async () => {
     await AsyncStorage.removeItem('accessToken');
     await AsyncStorage.removeItem('refreshToken');
@@ -229,7 +231,7 @@ export const signIn = async ({ username, password }: { username: string; passwor
                 password,
             }),
         });
-
+        console.log(12312);
         const data = await response.json();
 
         if (response.status === 400) {
@@ -363,6 +365,20 @@ export const createConversation = async ({ type, name, memberIds }: TCreateConve
             type,
             name,
             memberIds,
+        }),
+    });
+};
+export const sendDirectMessage = async ({
+    recipientId,
+    content,
+    conversationId,
+}: TSendDirectMessage) => {
+    return await fetchWithAuth(`${API_URL}/message/direct`, {
+        method: 'POST',
+        body: JSON.stringify({
+            recipientId,
+            content,
+            conversationId,
         }),
     });
 };

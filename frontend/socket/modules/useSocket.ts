@@ -47,6 +47,7 @@ export function useSocket() {
         socket.on('disconnect', onDisconnect);
         socket.on('connect_error', onConnectError);
         socket.on('online-users', onOnlineUser);
+        socket.on('sendMessage', sendMessage => console.log({ sendMessage }));
 
         return () => {
             socket.off('connect', onConnect);

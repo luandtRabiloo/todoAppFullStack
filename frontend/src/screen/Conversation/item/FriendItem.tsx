@@ -15,11 +15,10 @@ type TProfileCardProps = {
 };
 
 export const FriendItem: React.FC<TProfileCardProps> = ({ data }) => {
-    const { username, phone = '', email = '' } = data;
+    const { username, _id = '' } = data;
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
     const onChat = () => {
-        navigation.navigate('Chat', {});
+        navigation.navigate('Chat', { memberIds: [_id], username });
     };
 
     return (

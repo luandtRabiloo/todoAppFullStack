@@ -2,20 +2,28 @@ import { Request, Response } from 'express';
 import Conversation from '../models/Conversation';
 import Message from '../models/Message';
 import { emitNewMessage, updateConversationAfterCreateMessage } from '../utils/messageHelper';
+import { io } from '../socket';
 
 export const sendDirectMessage = async (req: Request, res: Response) => {
     try {
         const { recipientId, content, conversationId } = req.body;
         const senderId = req.user._id;
 
-        let conversation;
-
         if (!content) {
             return res.status(400).json({ message: 'Thiếu nội dung' });
         }
 
+        let conversation;
+
         if (conversationId) {
             conversation = await Conversation.findById(conversationId);
+        }
+
+        if (!conversation && recipientId) {
+            conversation = await Conversation.findOne({
+                type: 'direct',
+                'participants.userId': { $all: [senderId, recipientId] },
+            });
         }
 
         if (!conversation) {

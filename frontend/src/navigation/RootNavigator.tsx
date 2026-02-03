@@ -18,7 +18,8 @@ export type RootStackParamList = {
         subTitle: string;
     };
     Chat: {
-        id?: string;
+        memberIds?: string[];
+        username: string;
     };
 };
 

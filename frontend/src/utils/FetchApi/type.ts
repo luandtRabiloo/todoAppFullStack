@@ -1,5 +1,10 @@
 export type TCreateConversation = {
-    type: string;
-    name: string;
-    memberIds: string[];
+    type: 'direct' | 'group';
+    name?: string;
+    memberIds?: string[];
+};
+export type TSendDirectMessage = {
+    recipientId: string;
+    content: string;
+    conversationId: string[];
 };
