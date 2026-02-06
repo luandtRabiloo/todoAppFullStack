@@ -4,14 +4,17 @@ import { Header } from '../../element/Header';
 import { Colors } from '../../utils/color';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../navigation/RootNavigator';
 import { createConversation, sendDirectMessage } from '../../utils/FetchApi/FetchApi';
 import { useSocket } from '../../../socket/modules/useSocket';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { requestCameraAndMicPermission } from '../../utils/permissons';
 
 export function Chat() {
     const { bottom } = useSafeAreaInsets();
     const route = useRoute<RouteProp<RootStackParamList, 'Chat'>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [comment, setComment] = useState('');
     const { sendMessage } = useSocket();
     const { memberIds, username } = route.params;
@@ -42,7 +45,25 @@ export function Chat() {
     };
     return (
         <View style={{ flex: 1, backgroundColor: Colors.primary }}>
-            <Header iconLeft={true} title={username} iconRight={true} />
+            <Header
+                iconLeft={true}
+                title={username}
+                renderRightICon={
+                    <TouchableOpacity
+                        onPress={async () => {
+                            const granted = await requestCameraAndMicPermission();
+                            navigation.navigate('VideoCall');
+                        }}
+                    >
+                        <FontAwesome6
+                            name="video"
+                            size={40}
+                            color={Colors.base}
+                            iconStyle="solid"
+                        />
+                    </TouchableOpacity>
+                }
+            />
             <FlatList
                 horizontal
                 style={{ padding: 20 }}
@@ -72,6 +93,7 @@ export function Chat() {
                         borderRadius: 16,
                         backgroundColor: Colors.base,
                         flex: 1,
+                        marginBottom: 300,
                     }}
                 />
                 <TouchableOpacity onPress={onSend}>

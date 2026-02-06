@@ -12,6 +12,7 @@ import friendRouter from './routes/friendRouters';
 import messageRouter from './routes/messageRouters';
 import conversationRouter from './routes/conversationRouters';
 import { server, app } from './socket';
+import agoraRouter from './routes/agoraRouters';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use('/api/auth', authRoute);
 //private routes
 app.use(protectedRoute);
 app.use('/api/tasks', taskRoute);
+app.use('/api/agora', agoraRouter);
 app.use('/api/friend', friendRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/conversation', conversationRouter);

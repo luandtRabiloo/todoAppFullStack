@@ -231,7 +231,6 @@ export const signIn = async ({ username, password }: { username: string; passwor
                 password,
             }),
         });
-        console.log(12312);
         const data = await response.json();
 
         if (response.status === 400) {
@@ -381,4 +380,27 @@ export const sendDirectMessage = async ({
             conversationId,
         }),
     });
+};
+
+export const joinCall = async () => {
+    const uid = Math.floor(Math.random() * 100000);
+    const channelName = 'room_123';
+
+    const data = await fetchWithAuth(`${API_URL}/agora/token`, {
+        method: 'POST',
+        body: JSON.stringify({
+            channelName,
+            uid,
+        }),
+    });
+
+    if (!data?.token) {
+        throw new Error('Không nhận được Agora token');
+    }
+
+    return {
+        token: data.token,
+        uid,
+        channelName,
+    };
 };

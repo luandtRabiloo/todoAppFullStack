@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Auth } from '../screen/Auth/Auth';
 import { MainTabs } from './MainTabs';
 import { Chat } from '../screen/Chat/Chat';
+import { VideoCall } from '../screen/VideoCall/Videocall';
 
 export type RootStackParamList = {
     Auth: undefined;
@@ -21,6 +22,7 @@ export type RootStackParamList = {
         memberIds?: string[];
         username: string;
     };
+    VideoCall: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,6 +34,7 @@ export function RootNavigator() {
                 <Stack.Screen name="Auth" component={Auth} />
                 <Stack.Screen name="MainTabs" component={MainTabs} />
                 <Stack.Screen name="Chat" component={Chat} />
+                <Stack.Screen name="VideoCall" component={VideoCall} />
             </Stack.Navigator>
         </NavigationContainer>
     );
