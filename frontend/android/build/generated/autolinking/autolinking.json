@@ -28,81 +28,6 @@
         }
       }
     },
-    "@react-native-vector-icons/evil-icons": {
-      "root": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/evil-icons",
-      "name": "@react-native-vector-icons/evil-icons",
-      "platforms": {
-        "ios": {
-          "podspecPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/evil-icons/react-native-vector-icons-evil-icons.podspec",
-          "version": "12.4.0",
-          "configurations": [],
-          "scriptPhases": []
-        },
-        "android": {
-          "sourceDir": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/evil-icons/android",
-          "packageImportPath": "import com.reactnativevectoricons.evil_icons.VectorIconsEvilIconsPackage;",
-          "packageInstance": "new VectorIconsEvilIconsPackage()",
-          "buildTypes": [],
-          "libraryName": "VectorIconsEvilIcons",
-          "componentDescriptors": [],
-          "cmakeListsPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/evil-icons/android/build/generated/source/codegen/jni/CMakeLists.txt",
-          "cxxModuleCMakeListsModuleName": null,
-          "cxxModuleCMakeListsPath": null,
-          "cxxModuleHeaderName": null,
-          "isPureCxxDependency": false
-        }
-      }
-    },
-    "@react-native-vector-icons/fontawesome": {
-      "root": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/fontawesome",
-      "name": "@react-native-vector-icons/fontawesome",
-      "platforms": {
-        "ios": {
-          "podspecPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/fontawesome/react-native-vector-icons-fontawesome.podspec",
-          "version": "12.4.0",
-          "configurations": [],
-          "scriptPhases": []
-        },
-        "android": {
-          "sourceDir": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/fontawesome/android",
-          "packageImportPath": "import com.reactnativevectoricons.fontawesome.VectorIconsFontAwesomePackage;",
-          "packageInstance": "new VectorIconsFontAwesomePackage()",
-          "buildTypes": [],
-          "libraryName": "VectorIconsFontAwesome",
-          "componentDescriptors": [],
-          "cmakeListsPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/fontawesome/android/build/generated/source/codegen/jni/CMakeLists.txt",
-          "cxxModuleCMakeListsModuleName": null,
-          "cxxModuleCMakeListsPath": null,
-          "cxxModuleHeaderName": null,
-          "isPureCxxDependency": false
-        }
-      }
-    },
-    "@react-native-vector-icons/fontawesome6": {
-      "root": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/fontawesome6",
-      "name": "@react-native-vector-icons/fontawesome6",
-      "platforms": {
-        "ios": {
-          "podspecPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/fontawesome6/react-native-vector-icons-fontawesome6.podspec",
-          "version": "12.3.0",
-          "configurations": [],
-          "scriptPhases": []
-        },
-        "android": {
-          "sourceDir": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/fontawesome6/android",
-          "packageImportPath": "import com.reactnativevectoricons.fontawesome6.VectorIconsFontAwesome6Package;",
-          "packageInstance": "new VectorIconsFontAwesome6Package()",
-          "buildTypes": [],
-          "libraryName": "VectorIconsFontAwesome6",
-          "componentDescriptors": [],
-          "cmakeListsPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/@react-native-vector-icons/fontawesome6/android/build/generated/source/codegen/jni/CMakeLists.txt",
-          "cxxModuleCMakeListsModuleName": null,
-          "cxxModuleCMakeListsPath": null,
-          "cxxModuleHeaderName": null,
-          "isPureCxxDependency": false
-        }
-      }
-    },
     "react-native-agora": {
       "root": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/react-native-agora",
       "name": "react-native-agora",
@@ -296,6 +221,31 @@
             "RNSVGUseComponentDescriptor"
           ],
           "cmakeListsPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
+    "react-native-vector-icons": {
+      "root": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/react-native-vector-icons",
+      "name": "react-native-vector-icons",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/react-native-vector-icons/RNVectorIcons.podspec",
+          "version": "10.3.0",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/react-native-vector-icons/android",
+          "packageImportPath": "import com.oblador.vectoricons.VectorIconsPackage;",
+          "packageInstance": "new VectorIconsPackage()",
+          "buildTypes": [],
+          "libraryName": "RNVectorIconsSpec",
+          "componentDescriptors": [],
+          "cmakeListsPath": "/Users/mn08/Desktop/TodoAppFullStack/frontend/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
