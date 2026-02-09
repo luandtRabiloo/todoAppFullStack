@@ -1,47 +1,35 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Colors } from '../../../utils/color';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { AppImage } from '../../../element/AppImage';
+
 type TProfileCardProps = {
   data: {
     _id?: string;
-    username: string;
-    phone?: string;
-    email?: string;
+    lastMessage?: {
+      content: string;
+    };
+    seenBy: {
+      username: string;
+    };
   };
 };
 
 export const ConversationItem: React.FC<TProfileCardProps> = ({ data }) => {
-  const { username, phone = '', email = '' } = data;
-
+  const { lastMessage, seenBy } = data;
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         {/* Avatar */}
-        <View style={styles.avatarContainer}>
-          <Image
-            source={{ uri: 'https://i.pravatar.cc/150?img=12' }}
-            style={styles.avatar}
-            resizeMode="cover"
-          />
-          <View style={styles.avatarBorder} />
-        </View>
-
+        <AppImage isOnline />
         {/* Profile Info */}
         <View style={styles.infoContainer}>
           <Text style={styles.name} numberOfLines={1}>
-            {username}
+            {seenBy?.username}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <FontAwesome name="message" size={10} color={Colors.primary} />
             <Text style={styles.location} numberOfLines={1}>
-              {email}
-            </Text>
-          </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-            <FontAwesome name="phone" size={10} color={Colors.primary} />
-            <Text style={styles.location} numberOfLines={1}>
-              {phone}
+              {lastMessage?.content}
             </Text>
           </View>
         </View>
@@ -68,29 +56,10 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
+    padding: 10,
     backgroundColor: Colors.base,
     borderRadius: 24,
-  },
-  avatarContainer: {
-    position: 'relative',
-    marginRight: 14,
-  },
-  avatar: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#e0e0e0',
-  },
-  avatarBorder: {
-    position: 'absolute',
-    top: -2,
-    left: -2,
-    right: -2,
-    bottom: -2,
-    borderRadius: 30,
-    borderWidth: 2,
-    borderColor: 'rgba(79, 195, 247, 0.2)',
+    gap: 10,
   },
   infoContainer: {
     flex: 1,

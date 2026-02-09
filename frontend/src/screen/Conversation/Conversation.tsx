@@ -8,29 +8,28 @@ import { useGetLitChat } from './modules/useGetlistChat';
 import { FriendItem } from './item/FriendItem';
 
 export function Conversation() {
-    const { friends } = useGetLitChat();
-    const { conversations } = useGetLitsConversation();
-    return (
-        <View style={{ flex: 1 }}>
-            <Header iconLeft={false} title={'Chat'} iconRight={false} />
-            <FlatList
-                horizontal
-                style={{ backgroundColor: Colors.primary, padding: 20 }}
-                contentContainerStyle={{ gap: 16, height: 56 }}
-                data={friends}
-                keyExtractor={item => item._id}
-                renderItem={({ item }) => {
-                    return <FriendItem data={item} />;
-                }}
-            />
-            <FlatList
-                style={{ backgroundColor: Colors.primary, paddingTop: 20 }}
-                data={conversations}
-                keyExtractor={item => item._id}
-                renderItem={({ item }) => {
-                    return <ConversationItem data={item} />;
-                }}
-            />
-        </View>
-    );
+  const { friends } = useGetLitChat();
+  const { conversations } = useGetLitsConversation();
+  return (
+    <View style={{ flex: 1, backgroundColor: Colors.primary }}>
+      <Header iconLeft={false} title={'Chat'} iconRight={false} />
+      <FlatList
+        style={{ height: 56, maxHeight: 80, paddingHorizontal: 20, marginTop: 20 }}
+        contentContainerStyle={{ gap: 16, height: 56 }}
+        horizontal
+        data={friends}
+        keyExtractor={item => item._id}
+        renderItem={({ item }) => {
+          return <FriendItem data={item} />;
+        }}
+      />
+      <FlatList
+        data={conversations}
+        keyExtractor={item => item._id}
+        renderItem={({ item }) => {
+          return <ConversationItem data={item} />;
+        }}
+      />
+    </View>
+  );
 }
