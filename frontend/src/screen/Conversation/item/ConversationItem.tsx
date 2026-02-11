@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors } from '../../../utils/color';
 import { AppImage } from '../../../element/AppImage';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../navigation/RootNavigator';
 
 type TProfileCardProps = {
   data: {
@@ -16,12 +19,16 @@ type TProfileCardProps = {
 };
 
 export const ConversationItem: React.FC<TProfileCardProps> = ({ data }) => {
-  const { lastMessage, seenBy } = data;
+  const { lastMessage, seenBy, _id = '' } = data;
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const onChat = () => {
+    navigation.navigate('Chat', { memberIds: [_id], username: seenBy?.username });
+  };
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onChat}>
       <View style={styles.card}>
         {/* Avatar */}
-        <AppImage isOnline />
+        <AppImage isOnline text={seenBy?.username[0]} />
         {/* Profile Info */}
         <View style={styles.infoContainer}>
           <Text style={styles.name} numberOfLines={1}>
@@ -34,7 +41,7 @@ export const ConversationItem: React.FC<TProfileCardProps> = ({ data }) => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

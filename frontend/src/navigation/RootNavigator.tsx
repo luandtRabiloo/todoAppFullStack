@@ -8,34 +8,35 @@ import { Chat } from '../screen/Chat/Chat';
 import { VideoCall } from '../screen/VideoCall/Videocall';
 
 export type RootStackParamList = {
-    Auth: undefined;
-    MainTabs: undefined;
-    Home: undefined;
-    CreateTask: undefined;
-    EditTask: {
-        taskId: number | string;
-        title: string;
-        completed: boolean;
-        subTitle: string;
-    };
-    Chat: {
-        memberIds?: string[];
-        username: string;
-    };
-    VideoCall: undefined;
+  Auth: undefined;
+  MainTabs: undefined;
+  Home: undefined;
+  CreateTask: undefined;
+  EditTask: {
+    taskId: number | string;
+    title: string;
+    completed: boolean;
+    subTitle: string;
+  };
+  Chat: {
+    memberIds?: string[];
+    username: string;
+    conversationId: string;
+  };
+  VideoCall: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export function RootNavigator() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Auth" component={Auth} />
-                <Stack.Screen name="MainTabs" component={MainTabs} />
-                <Stack.Screen name="Chat" component={Chat} />
-                <Stack.Screen name="VideoCall" component={VideoCall} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Auth" component={Auth} />
+        <Stack.Screen name="MainTabs" component={MainTabs} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="VideoCall" component={VideoCall} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }

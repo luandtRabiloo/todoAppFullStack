@@ -4,6 +4,7 @@ import { Colors } from '../../../utils/color';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { sendFriend } from '../../../utils/FetchApi/FetchApi';
+import { AppImage } from '../../../element/AppImage';
 
 const { width } = Dimensions.get('window');
 
@@ -34,10 +35,7 @@ export const ProfileCard: React.FC<TProfileCardProps> = ({ data }) => {
     <View style={styles.container}>
       <View style={styles.card}>
         {/* Avatar */}
-        <View style={styles.avatarContainer}>
-          <Image source={{ uri: avatarUrl }} style={styles.avatar} resizeMode="cover" />
-          <View style={styles.avatarBorder} />
-        </View>
+        <AppImage />
 
         {/* Profile Info */}
         <View style={styles.infoContainer}>
@@ -86,6 +84,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 16,
+    gap: 10,
     backgroundColor: Colors.base,
     borderRadius: 24,
   },

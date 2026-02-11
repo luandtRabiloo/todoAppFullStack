@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { StatusBar, useColorScheme } from 'react-native';
-import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Colors } from './src/utils/color';
@@ -26,13 +25,11 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <KeyboardProvider statusBarTranslucent>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={Colors.sub_primary}
-          />
-          <RootNavigator />
-        </KeyboardProvider>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={Colors.sub_primary}
+        />
+        <RootNavigator />
       </SafeAreaProvider>
     </QueryClientProvider>
   );

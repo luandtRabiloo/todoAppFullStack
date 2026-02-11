@@ -6,20 +6,16 @@ type TAppImage = {
   uri?: string;
   username?: string;
   isOnline?: boolean;
+  text?: string;
 };
 
-export function AppImage({
-  styleContainer,
-  uri = 'https://i.pravatar.cc/150?img=12',
-  username,
-  isOnline = false,
-}: TAppImage) {
+export function AppImage({ styleContainer, uri, username, isOnline = false, text }: TAppImage) {
   return (
     <View style={[styles.avatarContainer, styleContainer]}>
       <View>
-        {!username ? (
-          <View>
-            <Text>L</Text>
+        {!uri ? (
+          <View style={[styles.avatar, { justifyContent: 'center', alignItems: 'center' }]}>
+            <Text style={{ fontSize: 26, fontWeight: '700' }}>{text}</Text>
           </View>
         ) : (
           <Image source={{ uri }} style={styles.avatar} resizeMode="cover" />

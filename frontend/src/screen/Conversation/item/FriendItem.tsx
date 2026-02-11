@@ -23,7 +23,7 @@ export const FriendItem: React.FC<TProfileCardProps> = ({ data }) => {
 
   return (
     <TouchableOpacity onPress={onChat}>
-      <AppImage isOnline username={username} />
+      <AppImage isOnline username={username} text={username[0]} />
     </TouchableOpacity>
   );
 };
